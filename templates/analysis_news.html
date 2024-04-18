@@ -1,0 +1,161 @@
+<!-- analysis_news.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background-color:#74AFAD;
+        }
+        .navbar {
+            background-color: #d89034;
+            padding: 14px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure the navbar stays on top of other content */
+            font-family: Bookman, URW Bookman L, serif; /* Change font family */
+            font-size:18px
+            
+        }    
+        .content {
+            padding-top: 70px; /* Adjust the value based on the height of your navbar */
+        }    
+        .matrix-container {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        .matrix-item {
+            display: inline-block;
+            background-color: #fff;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 0.9em;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    
+        /* Custom styles for headings */
+        .container h1,.context h2 {
+            color: #ffffff; /* White text color */
+            font-family: 'Arial', sans-serif; /* Use a common sans-serif font */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle text shadow for depth */
+            padding: 10px 15px; /* Padding around text */
+            border-radius: 5px; /* Rounded corners for the boxes */
+            margin-bottom: 20px; /* Space below the headings */
+        }
+    
+        .container h1 {
+            background-color: #007bff; /* Bootstrap primary blue for main heading */
+            font-size: 2.5em; /* Larger font size for main heading */
+        }
+    
+        .container h2 {
+            background-color: #6c757d; /* Bootstrap secondary gray for subheadings */
+            font-size: 2.5em; /* Slightly smaller than h1 */
+            margin-top: 10px; /* Space above subheadings */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .sentiment-box {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+        }
+        .navbar h1 {
+            color: #333 !important;
+            font-family: 'Bookman', serif !important;
+            font-size: 23px !important;
+            font-weight: bold !important;
+        }
+        
+    </style>
+    
+    
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="content">
+    <div class="container">
+        <h1>Analysis Results</h1>
+
+        <h2>Scraped Content:</h2>
+        <div class="matrix-container">{{ article_content }}</div>
+
+        <h2>Bag of Words Matrix:</h2>
+        <div class="matrix-container">
+            {% for word, count in bow_data.items() %}
+            <div class="matrix-item">
+                <strong>{{ word }}</strong>: {{ count }}
+            </div>
+            {% endfor %}
+            <h3>Top 3 Words by Count:</h3>
+            <ul>
+                {% for word, count in top_bow_words %}
+                <li><strong>{{ word }}</strong>: {{ count }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h2>TF-IDF Matrix:</h2>
+        <div class="matrix-container">
+            {% for word, value in tfidf_data.items() %}
+            <div class="matrix-item">
+                <strong>{{ word }}</strong>: {{ value }}
+            </div>
+            {% endfor %}
+            <h3>Top 3 Words by TF-IDF Value:</h3>
+            <ul>
+                {% for word, value in top_tfidf_words %}
+                <li><strong>{{ word }}</strong>: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <h2>Ridge Regression Graph:</h2>
+        <img src="data:image/png;base64,{{ image_data }}" alt="Ridge Regression Graph">
+
+        <h2>Sentiment Analysis</h2>
+<div class="sentiment-box">
+    <p>Sentiment Score: {{ sentiment_score }}</p>
+    <p>
+        Sentiment Label: 
+        {% if sentiment_label == 'Positive' %}
+            <span style="color: green;">{{ sentiment_label }}</span>
+        {% elif sentiment_label == 'Negative' %}
+            <span style="color: red;">{{ sentiment_label }}</span>
+        {% elif sentiment_label == 'Neutral' %}
+            <span style="color: blue;">{{ sentiment_label }}</span>
+        {% else %}
+            {{ sentiment_label }}
+        {% endif %}
+    </p>
+</div>
+
+
+
+
+
+        <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

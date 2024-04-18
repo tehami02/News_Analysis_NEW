@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News Articles from {{ source }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #74AFAD;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        li {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+            position: relative; /* Added line */
+        }
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        a {
+            color: #0656f9;
+            text-decoration: none;
+            display: block;
+            padding: 20px;
+            height: 100%;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #0656f9;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #0041c4;
+        }
+        .source {
+            font-size: 12px;
+            color: #666;
+            position: absolute; /* Added line */
+            bottom: -10px; /* Added line */
+            left: 20px; /* Added line */
+        }
+        .navbar {
+            background-color: #d89034;
+            padding: 0px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure the navbar stays on top of other content */
+            font-family: Bookman, URW Bookman L, serif; /* Change font family */
+            font-size:18px
+        }    
+        .content {
+            padding-top: 70px; /* Adjust the value based on the height of your navbar */
+        }    
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="content">
+    <h1>Top News from {{ source }}</h1>
+    <ul>
+        {% for article in articles %}
+        <li>
+            <a href="/analyze?url={{ article.link }}" target="_blank">{{ article.title }}</a>
+            <p class="source">{{ source }}</p> <!-- Changed line -->
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/" class="back-link">Back to Home</a>
+</div>
+</body>
+</html>
