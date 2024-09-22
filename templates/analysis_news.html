@@ -107,7 +107,7 @@
                 <strong>{{ word }}</strong>: {{ count }}
             </div>
             {% endfor %}
-            <h3>Top 3 Words by Count:</h3>
+            <h3>Top 5 Words by Count:</h3>
             <ul>
                 {% for word, count in top_bow_words %}
                 <li><strong>{{ word }}</strong>: {{ count }}</li>
@@ -122,7 +122,7 @@
                 <strong>{{ word }}</strong>: {{ value }}
             </div>
             {% endfor %}
-            <h3>Top 3 Words by TF-IDF Value:</h3>
+            <h3>Top 5 Words by TF-IDF Value:</h3>
             <ul>
                 {% for word, value in top_tfidf_words %}
                 <li><strong>{{ word }}</strong>: {{ value }}</li>

@@ -87,16 +87,17 @@
 <body>
     {% include 'navbar.html' %}
     <div class="content">
-    <h1>Select a News Source</h1>
-    <form action="/scrape" method="post">
-        <input type="radio" id="express" name="source" value="The Indian Express" required>
-        <label for="express">The Indian Express</label><br>
+        <h1>Select a News Source</h1>
+        <form action="{{ url_for('scrape') }}" method="post">
+            <input type="radio" id="express" name="source" value="The Indian Express" required>
+            <label for="express">The Indian Express</label><br>
 
-        <input type="radio" id="times" name="source" value="Times of India">
-        <label for="times">Times of India</label><br>
+            <input type="radio" id="times" name="source" value="Times of India">
+            <label for="times">Times of India</label><br>
 
-        <button type="submit">Show News</button>
-    </form>
-   </div>
+            <button type="submit">Show News</button>
+        </form>
+    </div>
 </body>
+
 </html>
